@@ -9,14 +9,14 @@ Accept: application/json
 withCredentials: true
 
 {
-  "username": "dani4",
+  "username": "dani",
   "password": "qwerty",
-  "email": "dani4@test.com",
+  "email": "dani@test.com",
   "avatarColor": "red",
   "avatarImage": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI2IiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMTI2IDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZWxsaXBzZSBjeD0iMzQiIGN5PSI2OSIgcng9IjI1IiByeT0iMTEiIGZpbGw9IiNEOUQ5RDkiLz4KPGVsbGlwc2UgY3g9Ijg0IiBjeT0iNjkiIHJ4PSIyNSIgcnk9IjExIiBmaWxsPSIjRDlEOUQ5Ii8+CjxlbGxpcHNlIGN4PSI1OSIgY3k9IjQzIiByeD0iMjUiIHJ5PSIyNiIgZmlsbD0iI0Q5RDlEOSIvPgo8ZWxsaXBzZSBjeD0iMTAwLjEwMiIgY3k9IjM5Ljk3NzIiIHJ4PSIyMy41IiByeT0iOS41IiB0cmFuc2Zvcm09InJvdGF0ZSgzMCAxMDAuMTAyIDM5Ljk3NzIpIiBmaWxsPSIjRDlEOUQ5Ii8+CjxlbGxpcHNlIGN4PSIyNS4xMDE2IiBjeT0iMTkuOTc3MiIgcng9IjIzLjUiIHJ5PSI5LjUiIHRyYW5zZm9ybT0icm90YXRlKDMwIDI1LjEwMTYgMTkuOTc3MikiIGZpbGw9IiNEOUQ5RDkiLz4KPC9zdmc+Cg=="
 }
 
-
+# x-content-type-options: nosniffX-DNS-Prefetch-Control: off
 ###
 POST {{baseUrl}}/{{urlPath}}/signin
 Content-Type: application/json
@@ -24,7 +24,7 @@ Accept: application/json
 withCredentials: true
 
 {
-  "username": "dani4",
+  "username": "dani",
   "password": "qwerty"
 }
 
@@ -43,3 +43,27 @@ Content-Type: application/json
 Accept: application/json
 withCredentials: true
 
+
+
+###
+POST {{baseUrl}}/{{urlPath}}/forgot-password
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "email": "dani@test.com"
+}
+
+
+
+###
+POST {{baseUrl}}/{{urlPath}}/reset-password/12374234234234
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "password": "qwerty1",
+  "confirmPassword": "qwerty1"
+}

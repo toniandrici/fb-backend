@@ -63,7 +63,6 @@ export class Signup {
     //ADD TO DATABASE
     omit(userDataForCache, [
       'uId',
-      'username',
       'email',
       'avatarColor',
       'password',

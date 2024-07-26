@@ -7,8 +7,12 @@ import { authService } from '@service/db/auth.service';
 import { BadRequestError } from '@global/helpers/error-handler';
 import { loginSchema } from '@auth/schemes/signin';
 import { IAuthDocument } from '@auth/interfaces/auth.interface';
-import { IUserDocument } from '@user/interfaces/user.interface';
+import { IResetPasswordParams, IUserDocument } from '@user/interfaces/user.interface';
 import { userService } from '@service/db/user.service';
+import { emailQueue } from '@service/queues/email.queue';
+import moment from 'moment';
+import publicIP from 'ip';
+import { resetPasswordTemplate } from '@service/emails/templates/reset-password/reset-password-template';
 
 export class SignIn {
   @joiValidation(loginSchema)
@@ -28,10 +32,9 @@ export class SignIn {
     const user: IUserDocument = await userService.getUserByAuthId(
       `${existingUser._id}`,
     );
-    console.log(user);
     const userJwt: string = JWT.sign(
       {
-        userId: user._id,
+        userId: user?._id || null,
         uId: existingUser.uId,
         email: existingUser.email,
         usename: existingUser.username,
@@ -39,22 +42,30 @@ export class SignIn {
       },
       config.JWT_TOKEN!,
     );
-
-    req.session = { jwt: userJwt };
-    const userDocument: IUserDocument = {
-      ...user,
-      authId: existingUser._id,
+    const templateParams: IResetPasswordParams = {
       username: existingUser.username,
       email: existingUser.email,
-      avatarColor: existingUser.avatarColor,
-      uId: existingUser.uId,
-      createdAt: existingUser.createdAt,
-    } as IUserDocument;
+      ipaddress: publicIP.address(),
+      date: moment().format('DD/MM/YYY HH:mm')
+    };
+
+    const template: string = resetPasswordTemplate.passwordResetConfirmationTemplate(templateParams);
+    emailQueue.addEmailJob('forgotPasswordEmail', {template, receiverEmail:'kira11@ethereal.email', subject: 'Password reset confirmation'});
+    req.session = { jwt: userJwt };
+    // const userDocument: IUserDocument = {
+    //   ...user,
+    //   authId: existingUser._id,
+    //   username: existingUser.username,
+    //   email: existingUser.email,
+    //   avatarColor: existingUser.avatarColor,
+    //   uId: existingUser.uId,
+    //   createdAt: existingUser.createdAt,
+    // } as IUserDocument;
     res
       .status(HTTP_STATUS.OK)
       .json({
         message: 'User login successfully',
-        user: userDocument,
+        user: existingUser,
         token: userJwt,
       });
   }

@@ -30,7 +30,7 @@ export class Helpers {
     try {
       JSON.parse(prop);
     } catch (error) {
-      return prop;
+      return error;
     }
   }
 }
