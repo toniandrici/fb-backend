@@ -1,0 +1,74 @@
+@baseUrl = http://localhost:5000
+
+@urlPath = api/v1
+
+
+###
+POST {{baseUrl}}/{{urlPath}}/post
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "post": "This is my first post",
+  "bgColor": "#4aa1f3",
+  "privacy": "Public",
+  "gifUrl": "",
+  "profilePicture": "",
+  "feelings": "happy"
+}
+
+
+###
+POST {{baseUrl}}/{{urlPath}}/post/image/post
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "post": "This is my first post",
+  "bgColor": "#4aa1f3",
+  "privacy": "Public",
+  "gifUrl": "",
+  "profilePicture": "",
+  "feelings": "happy",
+  "image": "mdheaaa"
+}
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/all/1
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/images/1
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+DELETE {{baseUrl}}/{{urlPath}}/post/56Y45TGB54445G6
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+
+
+###
+PUT {{baseUrl}}/{{urlPath}}/post/56Y45TGB54445G6
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "post": "This is my first post updated",
+  "bgColor": "blue",
+  "privacy": "Public",
+  "gifUrl": "",
+  "profilePicture": "",
+  "feelings": "happy",
+  "imgId": "",
+  "imgVersion": ""
+}
+
