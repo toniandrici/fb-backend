@@ -1,0 +1,35 @@
+@baseUrl = http://localhost:5000
+
+@urlPath = api/v1
+
+
+###
+POST {{baseUrl}}/{{urlPath}}/post/reaction
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "userTo": "This is my first post",
+  "postId": "#",
+  "type": "olve",
+  "previousReaction": "",
+  "postReactions": "",
+  "profilePicture": ""
+}
+
+
+###
+DELETE {{baseUrl}}/{{urlPath}}/post/reaction/87HIKUKUHG6UGUYG/sad/{"like": 0, "love": 0, "happy": 0}
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
+
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/reactions/87HIKUKUHG6UGUYG
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
